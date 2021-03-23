@@ -6,11 +6,91 @@
 				"navigationBarTitleText": "uni-app"
 			}
 		}
-	],
+	    ,{
+            "path" : "components/mine/mine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "components/chatGroup/chatGroup",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "components/pigBreeds/pigBreeds",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "components/friendshipPig/friendshipPig",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"color":"#cdd1d4",
+		"selectedColor":"#ff5a40",
+		"borderStyle":"black",
+		"backgroundColor":"#FFFFFF",
+		"list":[
+			{
+				"pagePath":"components/chatGroup/chatGroup",
+				"iconPath":"static/tabbarImgs/ic_tab_tb_normal.png",
+				"selectedIconPath":"static/tabbarImgs/ic_tab_tb_selected.png",
+				"text":"红包群"
+			},
+			{
+				"pagePath":"components/pigBreeds/pigBreeds",
+				"iconPath":"static/tabbarImgs/ic_tab_book_normal.png",
+				"selectedIconPath":"static/tabbarImgs/ic_tab_book_selected.png",
+				"text":"猪品种"
+			},
+			{
+				"pagePath":"pages/index/index",
+				"iconPath":"static/ic_pig_11.png",
+				"selectedIconPath":"static/ic_pig_10.png",
+				"text":"养猪场"
+			},
+			{
+				"pagePath":"components/friendshipPig/friendshipPig",
+				"iconPath":"static/tabbarImgs/ic_tab_company_normal.png",
+				"selectedIconPath":"static/tabbarImgs/ic_tab_company_selected.png",
+				"text":"友谊猪"
+			},
+			{
+				"pagePath":"components/mine/mine",
+				"iconPath":"static/tabbarImgs/ic_tab_me_normal.png",
+				"selectedIconPath":"static/tabbarImgs/ic_tab_me_selected.png",
+				"text":"我的"
+			}
+		],
+		"midButton":{
+			"width":"120rpx",
+			"height":"120rpx",
+			"iconPath":"static/tabbarImgs/ic_tab_main_selected.png",
+			"iconWidth":"105rpx"
+		}
 	}
 }

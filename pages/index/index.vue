@@ -2,15 +2,18 @@
 	<view class="page-body">
 		<!-- //养猪场 -->
 		<movable-area class="pigFarm">
-			<movable-view damping=5 friction=12 animation @touchstart="touchstart(index)" @touchend="touchend" @change="onChange" v-for="(item,index) in pigList" class="iconRow" :x="item.x" :y="item.y" direction="all" inertia>
+			<movable-view class="iconRow" direction="all" inertia damping=5 friction=12 animation @touchstart="touchstart(index)"
+			v-for="(item,index) in pigList" :x="item.x" :y="item.y" @touchend="touchend" @change="onChange">
 				<image class="pigIcon" :src="item.src"></image>
 			</movable-view>
-		</movable-area>
-		<movable-area class="smPigFarm">
-			<movable-view class="smImgRow" direction="all" inertia damping=5 friction=12 animation>
-				<image x="100" y="20" src="../../static/ic_cash_pig.png"></image>
+			
+			<movable-view class="smImgRow" direction="all" inertia damping=5 friction=12 animation
+			v-for="(item2,index2) in smPigList" :x="item2.x" :y="item2.y">
+				<image @click="smPigMove(index2)" class="smPigIcon" :src="item2.src"></image>
 			</movable-view>
+			
 		</movable-area>
+		
 		<view @click="livePig()" class="livePig">100</view>
 	</view>
 </template>
@@ -19,15 +22,7 @@
 	export default {
 		data() {
 			return {
-				// x: 0,
-				// y: 0,
-				// scale: 2,
 				touchElIndex:"",
-				// old: {
-				// 	x: 0,
-				// 	y: 0,
-				// 	scale: 2
-				// },
 				pigList:[
 					{
 						x:66,
@@ -44,32 +39,36 @@
 				],
 				smPigList:[
 					{
-						src:"../../static/ic_cash_pig.png"
+						x:51,
+						y:107,
+						src:"../../static/ic_cash_pig.png",
+						grade:1
+					},
+					{
+						x:205,
+						y:96,
+						src:"../../static/ic_cash_pig.png",
+						grade:1
 					}
 				]
 			}
 		},
 		onLoad() {
-			this.pigSport();
+			// setTimeout(()=>{this.smPigMove()},5000)
+			uni.showTabBarRedDot({
+				index:2
+			})
 		},
 		methods: {
-			tap: function(e) {
-				// 解决view层不同步的问题
-				this.x = this.old.x
-				this.y = this.old.y
-				this.$nextTick(function() {
-					this.x = 30
-					this.y = 30
-				})
-				console.log(111)
-			},
-			tap2() {
-				// 解决view层不同步的问题
-				this.scale = this.old.scale
-				this.scale = this.old.scale
-				this.$nextTick(function() {
-					this.scale = 3
-				})
+			smPigMove(i){
+				// for(let i = 0;i<this.smPigList.length;i++){
+				// 	this.smPigList[i].x = 320
+				// 	this.smPigList[i].y = 0
+				// 	setTimeout(()=>{this.smPigList.splice(i,1)},3000)
+				// }
+				this.smPigList[i].x = 320
+				this.smPigList[i].y = 0
+				setTimeout(()=>{this.smPigList.splice(i,1)},3000)
 			},
 			//当拖拽动作开始是将被操作的元素的索引存进data里面
 			touchstart(index){
@@ -82,7 +81,7 @@
 				// this.old.y = y
 				// console.log(this.touchElIndex)
 				//定义循环要跳过的条件
-				console.log(x)
+				// console.log(x)
 				let skip = parseInt(this.touchElIndex);
 				this.pigList[skip].x = x
 				this.pigList[skip].y = y
@@ -111,7 +110,7 @@
 				console.log("第"+i+"个猪要被升级");
 				let grade = this.pigList[i].grade
 				let src = "../../static/ic_pig_"+ (grade+1) +".png"
-				console.log(src)
+				// console.log(src)
 				this.pigList[i].src = src
 				this.pigList[i].grade = grade+1
 				this.pigList.splice(skip,1)
@@ -120,16 +119,24 @@
 			touchend:function(e){},
 			// 点击生成一头猪
 			livePig(){
-				console.log("生成一头猪")
+				let px = 77;
+				let py = 24
 				let pig = {
-					x:77,
-					y:24,
+					x:px,
+					y:py,
 					src:"../../static/ic_pig_1.png",
 					grade:1
 				}
+				let smPig = {
+					x:px-15,
+					y:py+30,
+					src:"../../static/ic_cash_pig",
+					grade:1
+				}
 				this.pigList.push(pig)
+				this.smPigList.push(smPig)
 				console.log(this.pigList)
-				// this.$forceUpdate() 
+				console.log(this.smPigList)
 			},
 			// 使猪运动的方法
 			pigSport(){
@@ -145,11 +152,6 @@
 				// 		this.onChange()
 				//     }
 				// })
-				
-			},
-			//小猪运动的方法
-			smPigSport(){
-				
 			}
 		}
 	}
@@ -163,7 +165,7 @@
 		position: relative;
 		.pigFarm{
 			width: 100%;
-			height: 70%;
+			height: 80%;
 			border: 1px solid #007AFF;
 			.iconRow{
 				width: 160rpx;
@@ -172,16 +174,15 @@
 					width: 100%;
 					height: 100%;
 				}
-				.smImgRow{
-					width: 32px;
-					height: 24px;
-					image{
-						width: 100%;
-						height: 100%;
-					}
+			}
+			.smImgRow{
+				width: 32px;
+				height: 24px;
+				image{
+					width: 100%;
+					height: 100%;
 				}
 			}
-			
 		}
 		.smPigFarm{
 			width: 100%;
@@ -194,7 +195,7 @@
 			.smImgRow{
 				width: 36px;
 				height: 24px;
-				image{
+				.smPigIcon{
 					width: 100%;
 					height: 100%;
 				}
